@@ -36,4 +36,18 @@
             }
         }
     </ul>
+    @if (hasMore()) {
+        <div class="load-more">
+            <button
+                type="button"
+                class="load-more-button"
+                [disabled]="isLoadingMore()"
+                [attr.aria-busy]="isLoadingMore()"
+                (click)="loadMore(nextPage(), pageSize)"
+            >
+                @if (isLoadingMore()) { Loading... } @else { Load more }
+            </button>
+        </div>
+    }
+    <div #sentinel class="sentinel" aria-hidden="true"></div>
 </section>
