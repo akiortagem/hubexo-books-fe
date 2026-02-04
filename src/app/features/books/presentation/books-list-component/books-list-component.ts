@@ -9,11 +9,12 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Book, BooksPage } from '../../domain/Book';
 import { BooksApi } from '../../data/books-api';
-import { finalize } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize, map, skip } from 'rxjs';
 
 @Component({
   selector: 'app-books-list-component',
@@ -27,6 +28,7 @@ export class BooksListComponent implements AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
   readonly isLoading = signal(false);
   readonly isLoadingMore = signal(false);
+  readonly searchTerm = signal('');
   readonly pageSize = 10;
   readonly bookPage = signal<BooksPage | null>(null);
   readonly hasBooks = computed(() => (this.bookPage()?.items.length ?? 0) > 0);
@@ -42,6 +44,27 @@ export class BooksListComponent implements AfterViewInit {
 
   constructor() {
     this.loadMore(1, this.pageSize);
+
+    toObservable(this.searchTerm)
+      .pipe(
+        skip(1),
+        map((term) => term.trim()),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((term) => {
+        if (term.length < 3) {
+          if (term.length === 0) {
+            this.bookPage.set(null);
+            this.loadMore(1, this.pageSize);
+          }
+          return;
+        }
+
+        this.bookPage.set(null);
+        this.loadMore(1, this.pageSize, term);
+      });
   }
 
   ngAfterViewInit() {
@@ -52,6 +75,11 @@ export class BooksListComponent implements AfterViewInit {
 
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) {
+        return;
+      }
+
+      const searchLength = this.searchTerm().trim().length;
+      if (searchLength > 0 && searchLength < 3) {
         return;
       }
 
@@ -66,7 +94,17 @@ export class BooksListComponent implements AfterViewInit {
     this.destroyRef.onDestroy(() => observer.disconnect());
   }
 
-  loadMore(page: number, pageSize: number) {
+  onSearchInput(event: Event) {
+    const target = event.target as HTMLInputElement | null;
+    this.searchTerm.set(target?.value ?? '');
+  }
+
+  loadMore(page: number, pageSize: number, keywordString?: string) {
+    const searchValue = (keywordString ?? this.searchTerm()).trim();
+    if (searchValue.length > 0 && searchValue.length < 3) {
+      return;
+    }
+
     const isFirstPage = page === 1;
     if (isFirstPage ? this.isLoading() : this.isLoadingMore()) {
       return;
@@ -83,7 +121,7 @@ export class BooksListComponent implements AfterViewInit {
     }
 
     this.api
-      .listBooks(page, pageSize)
+      .listBooks(page, pageSize, searchValue)
       .pipe(
         finalize(() => {
           if (isFirstPage) {

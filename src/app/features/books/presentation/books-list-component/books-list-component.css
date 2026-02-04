@@ -31,6 +31,38 @@
   font-size: 14px;
 }
 
+.search {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.search-label {
+  color: #cbd5f5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.search-input {
+  width: 100%;
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.search-input::placeholder {
+  color: rgba(148, 163, 184, 0.85);
+}
+
+.search-input:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
 .list {
   list-style: none;
   padding: 0;

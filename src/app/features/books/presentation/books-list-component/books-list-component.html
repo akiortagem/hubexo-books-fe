@@ -4,6 +4,20 @@
             Books
         </h1>
     </header>
+
+    <div class="search" role="search">
+        <input
+            id="book-search"
+            class="search-input"
+            type="search"
+            name="q"
+            placeholder="Search by title or author"
+            autocomplete="off"
+            [value]="searchTerm()"
+            (input)="onSearchInput($event)"
+        />
+    </div>
+
     <ul class="list" aria-label="Book list" [attr.aria-busy]="isLoading()">
         @if (isLoading()) {
             @for (i of skeletonItems; track i) {
