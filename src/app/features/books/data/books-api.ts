@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Book, BooksPage } from '../domain/Book';
+import { Book, BooksPage, NewBook } from '../domain/Book';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -25,5 +25,9 @@ export class BooksApi {
 
   getBook(uuid: string): Observable<Book>{
     return this.http.get<Book>(`${environment.apiUrl}/api/books/${uuid}`)
+  }
+
+  createBook(book: NewBook): Observable<Book>{
+    return this.http.post<Book>(`${environment.apiUrl}/api/books`, book)
   }
 }

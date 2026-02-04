@@ -11,18 +11,7 @@
     <div class="layout" aria-labelledby="book-form-title">
       <form class="card form" aria-describedby="form-help">
         <fieldset class="section">
-          <legend>Details</legend>
           <div class="grid">
-            <div class="field">
-              <label for="book-id">Book ID</label>
-              <input
-                id="book-id"
-                name="id"
-                type="text"
-                [value]="book()?.id ?? ''"
-                placeholder="auto-generated"
-              />
-            </div>
             <div class="field">
               <label for="book-title">Title</label>
               <input

@@ -8,6 +8,15 @@ export type Book = {
   desc: string;
 };
 
+export type NewBook = {
+  title: string;
+  author: string;
+  pubYear: string;
+  isbn: string;
+  genre: string;
+  desc: string;
+}
+
 export type BooksPage = {
   page: number;
   pageSize: number;

@@ -1,8 +1,13 @@
 <section class="page">
     <header class="topbar">
-        <h1>
-            Books
-        </h1>
+        <div class="topbar-row">
+            <h1>
+                Books
+            </h1>
+            <a class="add-book-button" [routerLink]="['/books/new']">
+                Add New Book
+            </a>
+        </div>
     </header>
 
     <div class="search" role="search">
