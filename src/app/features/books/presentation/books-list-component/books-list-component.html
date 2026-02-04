@@ -1,0 +1,12 @@
+<section class="page">
+    <header class="topbar">
+        <h1>
+            Books
+        </h1>
+    </header>
+    <ul class="list" aria-label="Book List">
+        <li class="card" *ngFor="let book of books; trackBy: trackById">
+            <div class="title">{{ book.title }}</div>
+        </li>
+    </ul>
+</section>
