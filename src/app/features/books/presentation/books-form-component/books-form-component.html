@@ -1,0 +1,91 @@
+<section class="page">
+  @if (isLoading()) {
+    <div class="loading" role="status" aria-live="polite">Loading Book</div>
+  } @else {
+    <header class="topbar">
+      <div class="title-wrap">
+        <h1 id="book-form-title">{{ book()?.title ?? 'Book Title' }}</h1>
+      </div>
+    </header>
+
+    <div class="layout" aria-labelledby="book-form-title">
+      <form class="card form" aria-describedby="form-help">
+        <fieldset class="section">
+          <legend>Details</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="book-id">Book ID</label>
+              <input
+                id="book-id"
+                name="id"
+                type="text"
+                [value]="book()?.id ?? ''"
+                placeholder="auto-generated"
+              />
+            </div>
+            <div class="field">
+              <label for="book-title">Title</label>
+              <input
+                id="book-title"
+                name="title"
+                type="text"
+                [value]="book()?.title ?? ''"
+                placeholder="The Glass Orchard"
+              />
+            </div>
+            <div class="field">
+              <label for="book-author">Author</label>
+              <input
+                id="book-author"
+                name="author"
+                type="text"
+                [value]="book()?.author ?? ''"
+                placeholder="Rina Alvarez"
+              />
+            </div>
+            <div class="field">
+              <label for="book-year">Publication year</label>
+              <input
+                id="book-year"
+                name="pubYear"
+                type="text"
+                [value]="book()?.pubYear ?? ''"
+                placeholder="2025"
+              />
+            </div>
+            <div class="field">
+              <label for="book-isbn">ISBN</label>
+              <input
+                id="book-isbn"
+                name="isbn"
+                type="text"
+                [value]="book()?.isbn ?? ''"
+                placeholder="978-0-123456-78-9"
+              />
+            </div>
+            <div class="field">
+              <label for="book-genre">Genre</label>
+              <input
+                id="book-genre"
+                name="genre"
+                type="text"
+                [value]="book()?.genre ?? ''"
+                placeholder="Literary Fiction"
+              />
+            </div>
+            <div class="field full">
+              <label for="book-desc">Description</label>
+              <textarea
+                id="book-desc"
+                name="desc"
+                rows="5"
+                [value]="book()?.desc ?? ''"
+                placeholder="Write a concise overview that helps readers understand the tone and themes."
+              ></textarea>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  }
+</section>

@@ -1,0 +1,102 @@
+:host {
+  display: block;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 0 16px 16px;
+  background: #0b0f1a;
+}
+
+.topbar {
+  max-width: 720px;
+  margin: 0 auto 12px auto;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #0b0f1a;
+  padding: 16px 0 12px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #f8fafc;
+}
+
+.subtitle {
+  margin: 6px 0 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 720px;
+  display: grid;
+  gap: 12px;
+}
+
+.card {
+  background: #111827;
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.card-link {
+  display: block;
+  padding: 14px 14px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 14px;
+}
+
+.card-link:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 3px;
+}
+
+.card-link:hover,
+.card-link:focus-visible {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 650;
+  margin-bottom: 6px;
+  color: #f1f5f9;
+}
+
+.meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #cbd5f5;
+  font-size: 13px;
+}
+
+.dot {
+  opacity: 0.75;
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+  .page {
+    padding: 0 12px 12px;
+  }
+  .card {
+    border-radius: 12px;
+    padding: 0;
+  }
+  .card-link {
+    border-radius: 12px;
+    padding: 12px;
+  }
+}

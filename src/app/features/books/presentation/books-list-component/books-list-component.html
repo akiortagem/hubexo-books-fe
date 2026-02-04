@@ -4,9 +4,36 @@
             Books
         </h1>
     </header>
-    <ul class="list" aria-label="Book List">
-        <li class="card" *ngFor="let book of books; trackBy: trackById">
-            <div class="title">{{ book.title }}</div>
-        </li>
+    <ul class="list" aria-label="Book list" [attr.aria-busy]="isLoading()">
+        @if (isLoading()) {
+            @for (i of skeletonItems; track i) {
+            <li class="card skeleton" aria-hidden="true">
+                <div class="title"></div>
+                <div class="meta">
+                    <span class="author"></span>
+                    <span class="year"></span>
+                </div>
+            </li>
+            }
+        } @else if (bookPage(); as page) {
+            @if (hasBooks()) {
+                @for (book of page.items; track trackById($index, book)) {
+                <li class="card">
+                    <a class="card-link" [routerLink]="['/books', book.id]" [attr.aria-label]="'Edit book ' + book.title">
+                        <div class="title">{{ book.title }}</div>
+                        <div class="meta">
+                            <span class="author">{{ book.author }}</span>
+                            <span class="dot" aria-hidden="true">•</span>
+                            @if (book.pubYear; as y) {
+                            <span class="year">{{ y }}</span>
+                            }
+                        </div>
+                    </a>
+                </li>
+                }
+            } @else {
+                <li class="card" aria-live="polite">No books found.</li>
+            }
+        }
     </ul>
 </section>
