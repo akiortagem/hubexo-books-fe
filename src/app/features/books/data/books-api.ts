@@ -15,8 +15,8 @@ export class BooksApi {
       `${environment.apiUrl}/api/books`,
       {
         params: {
-          page: page,
-          pageSize: pageSize
+          page: page.toString(),
+          pageSize: pageSize.toString()
         }
       }
     )
