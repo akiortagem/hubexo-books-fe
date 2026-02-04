@@ -10,8 +10,16 @@ import { environment } from '../../../../environments/environment';
 export class BooksApi {
   constructor(private http: HttpClient){}
 
-  listBooks(): Observable<BooksPage> {
-    return this.http.get<BooksPage>(`${environment.apiUrl}/api/books`)
+  listBooks(page: number, pageSize:number): Observable<BooksPage> {
+    return this.http.get<BooksPage>(
+      `${environment.apiUrl}/api/books`,
+      {
+        params: {
+          page: page,
+          pageSize: pageSize
+        }
+      }
+    )
   }
 
   getBook(uuid: string): Observable<Book>{
